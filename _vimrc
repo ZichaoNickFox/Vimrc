@@ -1,6 +1,9 @@
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
+"menu mess
+source $VIMRUNTIME/delmenu.vim  
+source $VIMRUNTIME/menu.vim 
 behave mswin
 
 set nocompatible              " be iMproved, required
@@ -77,6 +80,9 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+" message mess
+language messages zh_CN.utf-8
+
 " vim
 set nu
 colorscheme solarized 
@@ -152,7 +158,8 @@ set statusline=%f
 nnoremap == gg=G<c-o><c-o>zz
 
 " delete
-inoremap <c-BS> <delete>
+inoremap <s-BS> <delete>
+inoremap <c-BS> <c-w>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " easymotion
