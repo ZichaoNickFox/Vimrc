@@ -1,9 +1,6 @@
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
-"menu mess
-source $VIMRUNTIME/delmenu.vim  
-source $VIMRUNTIME/menu.vim 
 behave mswin
 
 set nocompatible              " be iMproved, required
@@ -64,6 +61,12 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" line number
+" Plugin 'vim-scripts/RltvNmbr.vim'
+
+" dictionary
+Plugin 'scrooloose/nerdtree'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -80,9 +83,6 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" message mess
-language messages zh_CN.utf-8
-
 " vim
 set nu
 colorscheme solarized 
@@ -117,8 +117,11 @@ nnoremap <c-l> :tabn<enter>
 nnoremap ; :
 
 " jump
-nnoremap <s-j> <c-d>
-nnoremap <s-k> <c-u>
+nnoremap <s-j> <c-d>zz
+nnoremap <s-k> <c-u>zz
+
+" insert mode
+inoremap <c-c> <esc>
 
 " case
 set ic
@@ -158,9 +161,9 @@ set statusline=%f
 nnoremap == gg=G<c-o><c-o>zz
 
 " delete
-inoremap <s-BS> <delete>
-inoremap <c-BS> <c-w>
+inoremap <s-bs> <del>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " easymotion
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
@@ -190,3 +193,5 @@ let g:multi_cursor_next_key='<c-d>'
 " vim-airline
 let g:AirlineTheme='solarized'
 
+"vim-scripts/RltvNmbr.vim
+" call RltvNmbr#RltvNmbrCtrl(1)
