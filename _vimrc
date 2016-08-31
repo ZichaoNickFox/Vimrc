@@ -150,12 +150,12 @@ set guioptions-=T
 " au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
 
 " reopen last files when open vim
-"autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-"   \ call mkdir($HOME . "/.vim") |
-"   \ endif |
-"   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
-"autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-"   \ execute "source " . $HOME . "/.vim/Session.vim"
+autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+   \ call mkdir($HOME . "/.vim") |
+   \ endif |
+   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+   \ execute "source " . $HOME . "/.vim/Session.vim"
 
 " Run maximized in GUI
 if has("gui_running")
@@ -199,7 +199,7 @@ let g:multi_cursor_quit_key='<c-c>'
 let g:multi_cursor_next_key='<c-d>'
 
 " vim-airline
-let g:AirlineTheme='light'
+let g:airline_theme = "murmur"
 
 "vim-scripts/RltvNmbr.vim
 " call RltvNmbr#RltvNmbrCtrl(1)
