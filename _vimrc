@@ -1,14 +1,21 @@
 set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/mswin.vim
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
 behave mswin
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+"  code mess
+set encoding=utf-8
+set fileencodings=utf-8,gbk,gb18030,gk2312
+language messages zh_CN.utf-8
+
 " set the runtime path to include Vundle and initialize
-set rtp+=C:/Vim/vimfiles/bundle/Vundle.vim/
-call vundle#begin('C:/Vim/vimfiles/bundle/')
+set rtp+=C:\Vim\vimfiles\bundle\Vundle.vim
+call vundle#begin('C:\Vim\vimfiles\bundle')
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -94,6 +101,7 @@ set softtabstop=4
 set et
 set cindent
 
+
 " recover to last edit position
 autocmd BufReadPost *
 \ if line("'\"")>0&&line("'\"")<=line("$") |
@@ -117,8 +125,8 @@ nnoremap <c-l> :tabn<enter>
 nnoremap ; :
 
 " jump
-nnoremap <s-j> <c-d>zz
-nnoremap <s-k> <c-u>zz
+nnoremap <s-j> <c-d>
+nnoremap <s-k> <c-u>
 
 " insert mode
 inoremap <c-c> <esc>
@@ -142,12 +150,12 @@ set guioptions-=T
 " au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
 
 " reopen last files when open vim
-autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-   \ call mkdir($HOME . "/.vim") |
-   \ endif |
-   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
-autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-   \ execute "source " . $HOME . "/.vim/Session.vim"
+"autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+"   \ call mkdir($HOME . "/.vim") |
+"   \ endif |
+"   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+"autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+"   \ execute "source " . $HOME . "/.vim/Session.vim"
 
 " Run maximized in GUI
 if has("gui_running")
@@ -191,7 +199,7 @@ let g:multi_cursor_quit_key='<c-c>'
 let g:multi_cursor_next_key='<c-d>'
 
 " vim-airline
-let g:AirlineTheme='solarized'
+let g:AirlineTheme='light'
 
 "vim-scripts/RltvNmbr.vim
 " call RltvNmbr#RltvNmbrCtrl(1)
