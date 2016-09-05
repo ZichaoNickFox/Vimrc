@@ -74,6 +74,13 @@ Plugin 'vim-airline/vim-airline-themes'
 " dictionary
 Plugin 'scrooloose/nerdtree'
 
+" wiki
+Plugin 'vimwiki/vimwiki'
+" Plugin 'xolox/vim-misc'
+" Plugin 'xolox/vim-notes'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -203,3 +210,10 @@ let g:airline_theme = "murmur"
 
 "vim-scripts/RltvNmbr.vim
 " call RltvNmbr#RltvNmbrCtrl(1)
+
+" vimwiki
+" let g:automatic_nested_syntaxes=1
+let wiki = {}
+let wiki.pah = '~/my_wiki/'
+let wiki.nested_syntaxes = {'c++':'cpp'}
+let g:vimwiki_list=[wiki]
