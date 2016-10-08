@@ -10,8 +10,10 @@ filetype off                  " required
 
 "  code mess
 set encoding=utf-8
-set fileencodings=utf-8,gbk,gb18030,gk2312
-language messages zh_CN.utf-8
+" set encoding=gbk
+set fileencodings=gbk
+language messages utf-8
+" language messages zh_CN.utf-8
 
 " set the runtime path to include Vundle and initialize
 set rtp+=C:\Vim\vimfiles\bundle\Vundle.vim
@@ -55,7 +57,7 @@ Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
 
 " search
-Plugin 'ggreer/the_silver_searcher'
+" Plugin 'ggreer/the_silver_searcher'
 
 " surround
 Plugin 'tpope/vim-surround'
@@ -73,13 +75,11 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " dictionary
 Plugin 'scrooloose/nerdtree'
-
-" wiki
 Plugin 'vimwiki/vimwiki'
-" Plugin 'xolox/vim-misc'
-" Plugin 'xolox/vim-notes'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+
+Plugin 'dkprice/vim-easygrep'
+
+Plugin 'tpope/vim-projectionist'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -152,17 +152,18 @@ set fileencodings=utf-8,gbk,gb18030,gk2312
 " window
 set guioptions-=m 
 set guioptions-=T
+set guifont=Consolas:h12:w7:b
 
 " return to normal mode when lost focus
-" au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
+au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
 
 " reopen last files when open vim
 autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-   \ call mkdir($HOME . "/.vim") |
-   \ endif |
-   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+  \ call mkdir($HOME . "/.vim") |
+  \ endif |
+  \ execute "mksession! " . $HOME . "/.vim/Session.vim"
 autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-   \ execute "source " . $HOME . "/.vim/Session.vim"
+\ execute "source " . $HOME . "/.vim/Session.vim"
 
 " Run maximized in GUI
 if has("gui_running")
@@ -177,8 +178,13 @@ nnoremap == gg=G<c-o><c-o>zz
 
 " delete
 inoremap <s-bs> <del>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" open container folder
+if has("win32")
+  " Open the folder containing the currently open file. Escape properly for Windows cmd shell.
+  nnoremap <silent> <C-d> :if expand("%:p:h") != "" \| exec "!start explorer.exe" shellescape(expand("%:p:h")) \| endif<CR>
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " easymotion
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
@@ -194,7 +200,7 @@ let g:ctrlp_working_path_mode='w'
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': 'g' } }
 let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 map - <Plug>NERDCommenterToggle
@@ -211,9 +217,20 @@ let g:airline_theme = "murmur"
 "vim-scripts/RltvNmbr.vim
 " call RltvNmbr#RltvNmbrCtrl(1)
 
-" vimwiki
-" let g:automatic_nested_syntaxes=1
-let wiki = {}
-let wiki.pah = '~/my_wiki/'
-let wiki.nested_syntaxes = {'c++':'cpp'}
-let g:vimwiki_list=[wiki]
+" easyGrep
+let g:EasyGrepMode=2
+let g:EasyGrepRecursive=1
+let g:EasyGrepWindow=0
+let g:EasyGrepPatternType=0
+let g:EasyGrepCommand=1
+set grepprg=pt
+
+" quick fix
+function! QfMakeConv()
+   let qflist = getqflist()
+   for i in qflist
+	  let i.text = iconv(i.text, "gbk", "utf-8")
+   endfor
+   call setqflist(qflist)
+endfunction
+au QuickfixCmdPost * call QfMakeConv()
