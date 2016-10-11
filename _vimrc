@@ -51,7 +51,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Shougo/neocomplete.vim'
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'ervandew/supertab'
-" Plugin 'SirVer/ultisnips'
+
+" snippet
+Plugin 'msanders/snipmate.vim'
 
 " comment
 Plugin 'scrooloose/nerdcommenter'
@@ -75,11 +77,16 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " dictionary
 Plugin 'scrooloose/nerdtree'
-Plugin 'vimwiki/vimwiki'
+" Plugin 'vimwiki/vimwiki'
 
 Plugin 'dkprice/vim-easygrep'
 
-Plugin 'tpope/vim-projectionist'
+" Plugin 'tpope/vim-projectionist'
+
+Plugin 'ap/vim-buftabline'
+
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -99,6 +106,8 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim
 set nu
+set hidden
+
 colorscheme solarized 
 set background=dark
 
@@ -123,10 +132,23 @@ endif
 " switch tab and splitWindow
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
-nnoremap <s-h> <c-w>h
-nnoremap <s-l> <c-w>l
-nnoremap <c-h> :tabp<enter>
-nnoremap <c-l> :tabn<enter>
+" nnoremap <c-h> <c-w>h
+" nnoremap <c-l> <c-w>l
+" nnoremap <s-h> :tabp<enter>
+" nnoremap <s-l> :tabn<enter>
+" nnoremap <c-h> :tabp<enter>
+" nnoremap <c-l> :tabn<enter>
+
+" buffer
+nnoremap <c-h> :bprev<CR>
+nnoremap <c-l> :bnext<CR>
+inoremap <c-h> :bprev<CR>
+inoremap <c-l> :bnext<CR>
+nnoremap <TAB> :b#<CR>
+cnoreabbrev wq w<bar>bd
+cnoreabbrev q bd
+nnoremap <leader>so :OpenSession<space>
+nnoremap <leader>ss :SaveSession<space>
 
 ";
 nnoremap ; :
@@ -155,15 +177,15 @@ set guioptions-=T
 set guifont=Consolas:h12:w7:b
 
 " return to normal mode when lost focus
-au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
+" au FocusLost,TabLeave * call feedkeys("\<C-\>\<C-n>")
 
-" reopen last files when open vim
-autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-  \ call mkdir($HOME . "/.vim") |
-  \ endif |
-  \ execute "mksession! " . $HOME . "/.vim/Session.vim"
-autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
-\ execute "source " . $HOME . "/.vim/Session.vim"
+" reopen last files when open vim, replaced by vim-session
+" autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+"   \ call mkdir($HOME . "/.vim") |
+"   \ endif |
+"   \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+" autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+" \ execute "source " . $HOME . "/.vim/Session.vim"
 
 " Run maximized in GUI
 if has("gui_running")
@@ -182,7 +204,7 @@ inoremap <s-bs> <del>
 " open container folder
 if has("win32")
   " Open the folder containing the currently open file. Escape properly for Windows cmd shell.
-  nnoremap <silent> <C-d> :if expand("%:p:h") != "" \| exec "!start explorer.exe" shellescape(expand("%:p:h")) \| endif<CR>
+  nnoremap <silent> <M-d> :if expand("%:p:h") != "" \| exec "!start explorer.exe" shellescape(expand("%:p:h")) \| endif<CR>
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -191,10 +213,13 @@ let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 map , <Plug>(easymotion-s)
 
 " superTab
-let g:SuperTabMappingForward = "<tab>"	
+let g:SuperTabMappingForward = "<tab>"
 
 " ctrlp
 let g:ctrlp_working_path_mode='w'
+let g:ctrlp_regexp = 0
+let g:ctrlp_by_filename = 1
+let g:ctrlp_max_files = 0
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -213,6 +238,13 @@ let g:multi_cursor_next_key='<c-d>'
 
 " vim-airline
 let g:airline_theme = "murmur"
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+" buffer
+let g:session_autosave = 'yes'
 
 "vim-scripts/RltvNmbr.vim
 " call RltvNmbr#RltvNmbrCtrl(1)
@@ -234,3 +266,7 @@ function! QfMakeConv()
    call setqflist(qflist)
 endfunction
 au QuickfixCmdPost * call QfMakeConv()
+
+"snipmate
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
