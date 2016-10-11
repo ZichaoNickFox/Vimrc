@@ -53,7 +53,7 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'ervandew/supertab'
 
 " snippet
-Plugin 'msanders/snipmate.vim'
+" Plugin 'msanders/snipmate.vim'
 
 " comment
 Plugin 'scrooloose/nerdcommenter'
@@ -83,10 +83,15 @@ Plugin 'dkprice/vim-easygrep'
 
 " Plugin 'tpope/vim-projectionist'
 
+" buffer
 Plugin 'ap/vim-buftabline'
 
+" session
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
+
+" markdown
+Plugin 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -147,8 +152,11 @@ inoremap <c-l> :bnext<CR>
 nnoremap <TAB> :b#<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev q bd
+
+" session
 nnoremap <leader>so :OpenSession<space>
 nnoremap <leader>ss :SaveSession<space>
+nnoremap <leader>sc :CloseSession<Enter>
 
 ";
 nnoremap ; :
@@ -270,3 +278,4 @@ au QuickfixCmdPost * call QfMakeConv()
 "snipmate
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
+
