@@ -216,6 +216,20 @@ if has("win32")
   " Open the folder containing the currently open file. Escape properly for Windows cmd shell.
   nnoremap <silent> <M-d> :if expand("%:p:h") != "" \| exec "!start explorer.exe" shellescape(expand("%:p:h")) \| endif<CR>
 endif
+
+" map 0
+nnoremap 0 ^
+
+" use system clipboard as default clipboard
+if has("win32")
+	set clipboard=unnamed
+else
+	set clipboard=unnamedplus
+endif
+
+" remap previous/next edit position
+nnoremap <s-h> <c-o>
+nnoremap <s-l> <c-i>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " easymotion
